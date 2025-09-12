@@ -9,15 +9,17 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 //Rotas para visualizar os registros
-Route::get('/',function (){return response()->json(['Sucesso'=>true]);});
-Route::get('/jogos',[JogosController::class,'index']);
-Route::get('/jogos/{id}',[JogosController::class,'show']);
+Route::get('/', function () {
+    return response()->json(['Sucesso' => true]);
+});
+Route::get('/jogos', [JogosController::class, 'index']);
+Route::get('/jogos/{id}', [JogosController::class, 'show']);
 
 //Rota para inserir os registros
-Route::post('/jogos',[JogosController::class,'store']);
+Route::post('/jogos', [JogosController::class, 'store']);
 
 //Rota para alterar os registros
-Route::put('/jogos/{id}',[JogosController::class,'update']);
+Route::put('/jogos/{id}', [JogosController::class, 'update']);
 
 //Rota para excluir o registro por id/codigo
-Route::delete('/jogos/{id}',[JogosController::class,'destroy']);
+Route::delete('/jogos/{id}', [JogosController::class, 'destroy']);

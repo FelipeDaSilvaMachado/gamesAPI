@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Jogos;
 use Illuminate\Http\Request;
+// use Illuminate\Http\RedirectResponse;
+// use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class JogosController extends Controller
@@ -47,11 +49,12 @@ class JogosController extends Controller
             return response()->json([
                 'sucess' => false,
                 'message' => 'Registros inválidos',
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 400);
         }
-        // var_dump($validator);
-        $registros = Jogos::created($request->all());
+
+        $registros = Jogos::create($request->all());
+
         if ($registros) {
             return response()->json([
                 'sucess' => true,
@@ -62,8 +65,6 @@ class JogosController extends Controller
             return response()->json([
                 'sucess' => false,
                 'message' => 'Erro ao cadastrar jogo',
-                'teste1' => 'teete',
-                'data' => $registros,
             ], 500);
         }
     }
@@ -126,13 +127,13 @@ class JogosController extends Controller
         if ($dadosBanco->save()) {
             return response()->json([
                 'sucess' => true,
-                'message' => 'Jogo' . ($id) . 'atualizado com sucesso',
+                'message' => 'Jogo ' . ($id) . ' atualizado com sucesso',
                 'data' => $dadosBanco,
             ], 200);
         } else {
             return response()->json([
                 'sucess' => false,
-                'message' => 'Erro ao atualizar jogo' . ($id),
+                'message' => 'Erro ao atualizar jogo ' . ($id),
             ], 500);
         }
     }
@@ -147,18 +148,18 @@ class JogosController extends Controller
         if (!$registros) {
             return response()->json([
                 'sucess' => false,
-                'message' => 'Jogo não encontrado'
+                'message' => 'Jogo ' . ($id) . ' não encontrado',
             ], 404);
         }
         if ($registros->delete()) {
             return response()->json([
                 'sucess' => true,
-                'message' => 'Jogo' . ($id) . 'deletado com sucesso',
+                'message' => 'Jogo ' . ($id) . ' deletado com sucesso',
             ], 200);
         } else {
             return response()->json([
                 'sucess' => false,
-                'message' => 'Erro ao deletar o jogo' . ($id),
+                'message' => 'Erro ao deletar o jogo ' . ($id),
             ], 500);
         }
     }
